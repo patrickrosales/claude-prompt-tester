@@ -28,7 +28,7 @@ const axiosInstance = axios.create({
  */
 export async function callClaudeAPI({
   prompt,
-  model = 'claude-3-5-sonnet-20241022',
+  model = 'claude-sonnet-4-5-20250929',
   temperature = 0.7,
   max_tokens = 1024,
   onStreamChunk,
@@ -59,9 +59,10 @@ export async function fetchAvailableModels() {
   } catch (error) {
     // Fallback to known models if endpoint not available
     return [
-      { id: 'claude-3-5-sonnet-20241022', name: 'Claude 3.5 Sonnet' },
-      { id: 'claude-3-opus-20250219', name: 'Claude 3 Opus' },
-      { id: 'claude-3-haiku-20250307', name: 'Claude 3 Haiku' },
+      { id: 'claude-sonnet-4-5-20250929', name: 'Claude Sonnet 4.5 (Latest)' },
+      { id: 'claude-opus-4-1-20250805', name: 'Claude Opus 4.1' },
+      { id: 'claude-haiku-4-5-20251001', name: 'Claude Haiku 4.5' },
+      { id: 'claude-3-haiku-20240307', name: 'Claude 3 Haiku (Legacy)' },
     ];
   }
 }

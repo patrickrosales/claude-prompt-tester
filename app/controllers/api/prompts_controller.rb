@@ -6,7 +6,7 @@ module Api
     # Calls Claude API with provided parameters
     def compare
       prompt = params.require(:prompt)
-      model = params[:model] || 'claude-3-5-sonnet-20241022'
+      model = params[:model] || 'claude-sonnet-4-5-20250929'
       temperature = params[:temperature]&.to_f || 0.7
       max_tokens = params[:max_tokens]&.to_i || 1024
 
@@ -37,9 +37,10 @@ module Api
     # Returns available Claude models
     def models
       available_models = [
-        { id: 'claude-3-5-sonnet-20241022', name: 'Claude 3.5 Sonnet' },
-        { id: 'claude-3-opus-20250219', name: 'Claude 3 Opus' },
-        { id: 'claude-3-haiku-20250307', name: 'Claude 3 Haiku' },
+        { id: 'claude-sonnet-4-5-20250929', name: 'Claude Sonnet 4.5 (Latest)' },
+        { id: 'claude-opus-4-1-20250805', name: 'Claude Opus 4.1' },
+        { id: 'claude-haiku-4-5-20251001', name: 'Claude Haiku 4.5' },
+        { id: 'claude-3-haiku-20240307', name: 'Claude 3 Haiku (Legacy)' },
       ]
       render json: { models: available_models }
     end
@@ -76,6 +77,8 @@ module Api
       }
     rescue StandardError => e
       Rails.logger.error("Anthropic API Error: #{e.class} - #{e.message}")
+      Rails.logger.error("Model attempted: #{model}")
+      Rails.logger.error("Full error: #{e.inspect}")
       raise "API Error: #{e.message}"
     end
   end
